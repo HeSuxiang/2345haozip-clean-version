@@ -1,0 +1,208 @@
+; 脚本由 Inno Setup 脚本向导 生成！
+; 有关创建 Inno Setup 脚本文件的详细资料请查阅帮助文档！
+#include "compiler:WaterLib.iss"
+
+#define MyAppName "2345好压 v6.3 纯净版"
+#define MyAppVersion "6.3.1.11144"
+#define MyAppPublisher "2345好压"
+#define MyAppURL "cuisanzhang@163.com"
+#define MyAppExeName "HaoZip.exe"
+
+[Setup]
+; 注: AppId的值为单独标识该应用程序。
+; 不要为其他安装程序使用相同的AppId值。
+; (若要生成新的 GUID，可在菜单中点击 "工具|生成 GUID"。)
+AppId={{5FED836A-C96C-4d88-A91E-F63F07726585}
+AppName={#MyAppName}
+AppVersion={#MyAppVersion}
+;AppVerName={#MyAppName} {#MyAppVersion}
+AppPublisher={#MyAppPublisher}
+AppPublisherURL={#MyAppURL}
+AppSupportURL={#MyAppURL}
+AppUpdatesURL={#MyAppURL}
+DefaultDirName={autopf}\2345Soft
+;DisableDirPage=yes
+DisableProgramGroupPage=yes
+; [Icons] 的“quicklaunchicon”条目使用 {userappdata}，而其 [Tasks] 条目具有适合 IsAdminInstallMode 的检查。
+UsedUserAreasWarning=no
+; 以下行取消注释，以在非管理安装模式下运行（仅为当前用户安装）。
+;PrivilegesRequired=lowest
+PrivilegesRequiredOverridesAllowed=commandline
+OutputDir=D:\out
+OutputBaseFilename={#MyAppName}
+SetupIconFile=D:\all\Program Files\2345Soft\HaoZip\icon\logo.ico
+Compression=lzma
+SolidCompression=yes
+WizardStyle=classic
+ ;默认值：classic 如果此指令设置为 modern，则安装和卸载程序将显示更现代的外观，
+
+ChangesAssociations=yes
+;当该指令设为 yes，安装程序将在安装结束时告诉资源管理器刷新它的文件关联信息，并且在卸载完成后执行同样操作。
+
+;DisableReadyPage=no
+;默认值： no  如果设置为 yes，则安装程序将不显示准备安装 向导页面。
+
+;SourceDir=D:\all
+;为脚本指定一个新的源目录。
+
+InfoBeforeFile=D:\all\readme.txt
+; 指定可选的“自述”文件名称，用 .txt 或 .rtf(富文本)格式，它显示在用户选择程序的目标目录之前。 
+;在运行安装程序编译器时，这个文件必须位于你的安装程序的源目录，除非你指定了文件的完整路径或用“compiler:”作为前缀，在这种场合下它会在编译器目录下查找文件。
+
+LicenseFile=D:\all\license.txt
+;指定可选的许可协议文件名称，用 .txt 或 .rtf(富文本)格式，它显示在用户选择程序的目标目录之前。在运行安装程序编译器时，这个文件必须位于你的安装的源目录中，除非你指定了文件的完整路径或用“compiler:”作为前缀
+
+Uninstallable=yes
+;默认值：yes  这个决定 Inno Setup 的卸载程序是否被自动包含在安装程序中。如果是 yes 或对于一个布尔表达式求值运算为 True，则包括卸载程序。否则，不包括卸载支持，需要终端用户手工移去属于你的应用程序的文件
+
+
+UninstallDisplayName=好压
+;这用来让你指过在添加或删除程序控制面板中显示的程序自定义名。这个值可以包含常量。
+
+UninstallDisplayIcon={app}\HaoZip.exe
+;这个允许您指定一个特定的图标文件(可执行文件或 .ico 文件)，来显示在“控制面板”程序中添加/删除程序的卸载项。文件名通常会以一个目录常量开头
+
+UninstallFilesDir={app}
+;指定卸载程序的配置文件“unins*.*”文件贮存的目录。
+
+VersionInfoCompany=2345好压
+;指定安装程序版本信息中的公司名的值。
+
+VersionInfoProductName={#MyAppName}
+;指定安装程序版本信息产品名称值。
+
+DisableWelcomePage=no
+;如果设置为 yes，安装程序将不显示欢迎 向导页面。
+
+WizardImageFile=D:\all\install-bg.bmp,D:\all\install-bg-164-32.bmp
+ ;指定显示在安装程序向导左边的位图文件名。在运行安装程序编译器时，这个文件必须位于你的安装程序的源目录，
+
+ WizardSmallImageFile=D:\all\install-small-138-140.bmp, D:\all\install-small-55-55.bmp
+
+[Languages]
+Name: "chinesesimp"; MessagesFile: "compiler:Default.isl"
+
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+; Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
+
+
+
+[Icons]
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{userstartmenu}\好压\好压"; Filename: "{app}\HaoZip.exe"; WorkingDir: "{app}"
+//Name: "{userstartmenu}\好压\卸载好压"; Filename: "{app}\Uninstall.exe"; WorkingDir: "{app}"
+Name: "{userstartmenu}\好压\好压实用工具\MD5校验"; Filename: "{app}\HaoZipMd5.exe"; WorkingDir: "{app}"       
+Name: "{userstartmenu}\好压\好压实用工具\批量文件改名"; Filename: "{app}\HaoZipRename.exe"; WorkingDir: "{app}"
+Name: "{userstartmenu}\好压\好压实用工具\批量字符替换"; Filename: "{app}\HaoZipReplace.exe"; WorkingDir: "{app}"
+Name: "{userstartmenu}\好压\好压实用工具\虚拟光驱"; Filename: "{app}\HaoZipCD.exe"; WorkingDir: "{app}"
+;foldershortcut
+;创建一个特殊的象“文件夹快捷方式”的快捷方式类型。一般来说，文件夹快捷方式出现在开始菜单中，单击该快捷方式会打开资源管理器窗口显示文件夹内容。
+
+; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
+
+[Run]
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Types]
+Name: "完全安装"; Description: "完全安装"
+
+[Files]
+Source: "D:\all\Program Files\2345Soft\HaoZip\HaoZip.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\all\Program Files\2345Soft\HaoZip\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: "D:\all\ProgramData\Microsoft\Windows\Start Menu\Programs\*"; DestDir: "C:\ProgramData\Microsoft\Windows\Start Menu\Programs"; Flags: ignoreversion recursesubdirs createallsubdirs
+; 注意: 不要在任何共享系统文件上使用“Flags: ignoreversion”
+
+
+ ;如果不是使用本人增强版本INNO,则使用定时回调插件
+#ifndef ISVersion
+Source: InnoCallback.dll; DestDir: {tmp}; Flags: dontcopy noencryption
+#endif
+
+[Code]
+#ifndef ISVersion
+type
+ TTimerProc = procedure(H: LongWord; MSG: LongWord; idEvent: LongWord; dwTime: LongWord);
+
+function WrapTimerProc(CallBack: TTimerProc; ParamCount: Integer): LongWord;
+  external 'InnoCallback@files:InnoCallBack.dll stdcall';
+
+function SetTimer(hWnd: LongWord; nIDEvent, uElapse: LongWord; lpTimerFunc: LongWord): LongWord;
+  external 'SetTimer@user32.dll stdcall';
+#endif
+
+
+var
+  MoveB_X, MoveT_Y: Integer;
+
+  //DrawBitmapDemo: TBitmap;
+  //DrawMoveBtn: Array[1..4] Of TButton;
+
+  WaterHandle:Integer;
+
+#ifdef ISVersion
+  Timer: TTimer;
+#endif
+
+
+
+#ifdef ISVersion
+procedure Timer_OnTimer(Sender: TObject);
+Begin
+  MoveT_Y := MoveT_Y + 1;
+  If MoveT_Y >= WizardForm.WizardBitmapImage.Height then MoveT_Y := 0;
+ // WaterDrawText(WaterHandle, 1, 50, MoveT_Y, DrawTextMoveDemo);
+
+  MoveB_X := MoveB_X + 1;
+ // If MoveB_X >= WizardForm.WizardBitmapImage.Width then MoveB_X := 0 - DrawBitmapDemo.Width;
+  //WaterDrawBitmap(WaterHandle, 1, MoveB_X, 80, DrawBitmapDemo.Handle, True, clDefault);
+End;
+#else
+procedure MyTimerProc(H: LongWord; MSG: LongWord; idEvent:LongWord; dwTime:LongWord);
+begin
+  MoveT_Y := MoveT_Y + 1;
+  If MoveT_Y >= WizardForm.WizardBitmapImage.Height then MoveT_Y := 0;
+  WaterDrawText(WaterHandle, 1, 50, MoveT_Y, DrawTextMoveDemo);
+
+  MoveB_X := MoveB_X + 1;
+  If MoveB_X >= WizardForm.WizardBitmapImage.Width then MoveB_X := 0 - DrawBitmapDemo.Width;
+  WaterDrawBitmap(WaterHandle, 1, MoveB_X, 80, DrawBitmapDemo.Handle);
+end;
+#endif
+
+procedure InitializeWizard();
+var
+  F: AnsiString;
+  #ifndef ISVersion
+  TimerCallBack: LongWord;
+  #endif
+begin
+  WaterSupportAuthor(False);
+  //支持本人作品, 建议开启标识显示.
+  //只有开启该功能后, 才可以使用WaterDraw****相关API的功能
+
+  F:= ExpandConstant('{tmp}\WizardImage.bmp');
+  WizardForm.WizardBitmapImage.Bitmap.SaveToFile(F);
+  WaterHandle := WaterInit(WizardForm.WelcomePage.Handle, 2, 2);
+  WaterSetBounds(WaterHandle, WizardForm.WizardBitmapImage.Left, WizardForm.WizardBitmapImage.Top, WizardForm.WizardBitmapImage.Width, WizardForm.WizardBitmapImage.Height);
+  WaterSetFile(WaterHandle, AnsiString(F));
+  WaterSetActive(WaterHandle, True);
+   DeleteFile(F);
+
+end;
+
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  Case CurPageID of
+    wpWelcome : WaterSetParentWindow(WaterHandle, WizardForm.WelcomePage.Handle);  //将水波移动到另一个句柄上
+    wpFinished: WaterSetParentWindow(WaterHandle, WizardForm.FinishedPage.Handle); //将水波移动到另一个句柄上
+  end;
+end;
+
+//释放所有水波对象
+procedure DeinitializeSetup();
+begin
+  WaterAllFree;
+end;
+

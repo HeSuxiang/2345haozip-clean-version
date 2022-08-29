@@ -1,0 +1,14 @@
+Application is running with Unicode string encoding.
+Failed to initialize communications.  Some features are disabled.
+init_simulate_app:  mode = MECH_INIT_ONSTARTUP (INFO MESSAGE)
+pglSetStatus::   Pgl Session Initialize (INFO MESSAGE)
+Cannot run OpenGL without use of PTC certified graphics hardware.Could not find required PIXEL FORMAT.
+pgli_ogl_get_hardware_config:  Can't find any suitable Double Buffered PFD's.
+dbg_err_crash() -- crashing out in ORDER_DEBUG ONLY.
+generate UI traceback and exit
+Generating automatic traceback in D:\all\traceback.log...
+generate plain traceback and exit
+pro_notification_remove:  event_id 5 was never defined? (INFO MESSAGE)
+pro_notification_remove:  event_id 6 was never defined? (INFO MESSAGE)
+pro_notification_remove:  event_id 14 was never defined? (INFO MESSAGE)
+pro_notification_remove:  event_id 15 was never defined? (INFO MESSAGE)

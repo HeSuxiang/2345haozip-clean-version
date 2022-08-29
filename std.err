@@ -1,0 +1,4 @@
+clnttcp_create: connect failed, error = 10061, retrying
+
+*** FATAL ERROR in msg_read_ID_file : ***
+	called for file 14 on uninitialized message system
