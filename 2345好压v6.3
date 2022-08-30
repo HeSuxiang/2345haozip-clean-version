@@ -7,6 +7,7 @@
 #define MyAppPublisher "2345好压"
 #define MyAppURL "cuisanzhang@163.com"
 #define MyAppExeName "HaoZip.exe"
+#define MyAppDir  "HaoZip"
 
 [Setup]
 ; 注: AppId的值为单独标识该应用程序。
@@ -20,9 +21,15 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\2345Soft
+DefaultDirName={autopf}\2345Soft\HaoZip
+
+DefaultGroupName=好压
+;      该指令的值用是在向导的选择开始菜单文件夹页面中使用的默认开始菜单文件夹名。如果该指令是空白或未指定，它将用“(默认值)”作为名称。
+
+
 ;DisableDirPage=yes
-DisableProgramGroupPage=yes
+;DisableProgramGroupPage=true
+
 ; [Icons] 的“quicklaunchicon”条目使用 {userappdata}，而其 [Tasks] 条目具有适合 IsAdminInstallMode 的检查。
 UsedUserAreasWarning=no
 ; 以下行取消注释，以在非管理安装模式下运行（仅为当前用户安装）。
@@ -32,9 +39,9 @@ OutputDir=D:\out
 OutputBaseFilename={#MyAppName}
 SetupIconFile=D:\all\Program Files\2345Soft\HaoZip\icon\logo.ico
 Compression=lzma
-SolidCompression=yes
+SolidCompression=true
 WizardStyle=classic
- ;默认值：classic 如果此指令设置为 modern，则安装和卸载程序将显示更现代的外观，
+;默认值：classic 如果此指令设置为 modern，则安装和卸载程序将显示更现代的外观，=
 
 ChangesAssociations=yes
 ;当该指令设为 yes，安装程序将在安装结束时告诉资源管理器刷新它的文件关联信息，并且在卸载完成后执行同样操作。
@@ -46,13 +53,13 @@ ChangesAssociations=yes
 ;为脚本指定一个新的源目录。
 
 InfoBeforeFile=D:\all\readme.txt
-; 指定可选的“自述”文件名称，用 .txt 或 .rtf(富文本)格式，它显示在用户选择程序的目标目录之前。 
+; 指定可选的“自述”文件名称，用 .txt 或 .rtf(富文本)格式，它显示在用户选择程序的目标目录之前。
 ;在运行安装程序编译器时，这个文件必须位于你的安装程序的源目录，除非你指定了文件的完整路径或用“compiler:”作为前缀，在这种场合下它会在编译器目录下查找文件。
 
 LicenseFile=D:\all\license.txt
 ;指定可选的许可协议文件名称，用 .txt 或 .rtf(富文本)格式，它显示在用户选择程序的目标目录之前。在运行安装程序编译器时，这个文件必须位于你的安装的源目录中，除非你指定了文件的完整路径或用“compiler:”作为前缀
 
-Uninstallable=yes
+Uninstallable=true
 ;默认值：yes  这个决定 Inno Setup 的卸载程序是否被自动包含在安装程序中。如果是 yes 或对于一个布尔表达式求值运算为 True，则包括卸载程序。否则，不包括卸载支持，需要终端用户手工移去属于你的应用程序的文件
 
 
@@ -62,7 +69,7 @@ UninstallDisplayName=好压
 UninstallDisplayIcon={app}\HaoZip.exe
 ;这个允许您指定一个特定的图标文件(可执行文件或 .ico 文件)，来显示在“控制面板”程序中添加/删除程序的卸载项。文件名通常会以一个目录常量开头
 
-UninstallFilesDir={app}
+;UninstallFilesDir={app}
 ;指定卸载程序的配置文件“unins*.*”文件贮存的目录。
 
 VersionInfoCompany=2345好压
@@ -75,52 +82,81 @@ DisableWelcomePage=no
 ;如果设置为 yes，安装程序将不显示欢迎 向导页面。
 
 WizardImageFile=D:\all\install-bg.bmp,D:\all\install-bg-164-32.bmp
- ;指定显示在安装程序向导左边的位图文件名。在运行安装程序编译器时，这个文件必须位于你的安装程序的源目录，
+;指定显示在安装程序向导左边的位图文件名。在运行安装程序编译器时，这个文件必须位于你的安装程序的源目录，=
 
- WizardSmallImageFile=D:\all\install-small-138-140.bmp, D:\all\install-small-55-55.bmp
+WizardSmallImageFile=D:\all\install-small-138-140.bmp, D:\all\install-small-55-55.bmp
+;安装过程右上角图片
+
+VersionInfoVersion=6.3.1.11144
+VersionInfoTextVersion=2345好压 v6.3 纯净版
+UsePreviousAppDir=false
+;使用上一次安装目录
+;UninstallLogMode=overwrite
+;卸载日志模式
 
 [Languages]
-Name: "chinesesimp"; MessagesFile: "compiler:Default.isl"
+Name: chinesesimp; MessagesFile: compiler:Default.isl
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
 ; Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
 
 
+[Files]
+Source: D:\all\Program Files\2345Soft\HaoZip\HaoZip.exe; DestDir: {app}; Flags: ignoreversion
+Source: D:\all\Program Files\2345Soft\HaoZip\HaoZipExt.dll; DestDir: {app}; Flags: ignoreversion regserver  sharedfile 
+Source: D:\all\Program Files\2345Soft\HaoZip\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+;注册dll
+
+;Source: "D:\all\ProgramData\Microsoft\Windows\Start Menu\Programs\*"; DestDir: "C:\ProgramData\Microsoft\Windows\Start Menu\Programs"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+
+ [Dirs]
+ Name: {userstartmenu}\好压
+ ;这个可选区段用来定义除创建用户选择的应用程序目录外安装程序自动创建的另外目录。在主应用程序目录下创建子目录对于这个区段是公共使用的。
+;请注意，在使用 [Files] 区段安装文件前你无需一定要创建目录，这个区段起初用于创建一个空的目录。
+
+;开始菜单目录
+;uninsalwaysuninstall 告诉卸载程序如果目录是空的，允许删除该目录。通常卸载程序只尝试删除在安装前不存在的目录。
+;deleteafterinstall  告诉安装程序照常创建目录，但当安装完成(或中断)后，如果它是空的，则删除它。比
+
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Tasks: desktopicon
-Name: "{userstartmenu}\好压\好压"; Filename: "{app}\HaoZip.exe"; WorkingDir: "{app}"
-//Name: "{userstartmenu}\好压\卸载好压"; Filename: "{app}\Uninstall.exe"; WorkingDir: "{app}"
-Name: "{userstartmenu}\好压\好压实用工具\MD5校验"; Filename: "{app}\HaoZipMd5.exe"; WorkingDir: "{app}"       
-Name: "{userstartmenu}\好压\好压实用工具\批量文件改名"; Filename: "{app}\HaoZipRename.exe"; WorkingDir: "{app}"
-Name: "{userstartmenu}\好压\好压实用工具\批量字符替换"; Filename: "{app}\HaoZipReplace.exe"; WorkingDir: "{app}"
-Name: "{userstartmenu}\好压\好压实用工具\虚拟光驱"; Filename: "{app}\HaoZipCD.exe"; WorkingDir: "{app}"
+;Name: {autoprograms}\{#MyAppName}; Filename: {app}\{#MyAppExeName}
+Name: {autodesktop}\好压; Filename: {app}\{#MyAppExeName}; WorkingDir: {app}; Tasks: desktopicon
+; 桌面快捷方式
+
+;开始菜单
+Name: {userstartmenu}\好压\好压; Filename: {app}\HaoZip.exe; WorkingDir: {app}
+;Name: {userstartmenu}\好压\卸载好压; Filename: {app}\Uninstall.exe; WorkingDir: {app}
+Name: {userstartmenu}\好压\好压实用工具\MD5校验; Filename: {app}\HaoZipMd5.exe; WorkingDir: {app}
+Name: {userstartmenu}\好压\好压实用工具\批量文件改名; Filename: {app}\HaoZipRename.exe; WorkingDir: {app}
+Name: {userstartmenu}\好压\好压实用工具\批量字符替换; Filename: {app}\HaoZipReplace.exe; WorkingDir: {app}
+Name: {userstartmenu}\好压\好压实用工具\虚拟光驱; Filename: {app}\HaoZipCD.exe; WorkingDir: {app}
 ;foldershortcut
 ;创建一个特殊的象“文件夹快捷方式”的快捷方式类型。一般来说，文件夹快捷方式出现在开始菜单中，单击该快捷方式会打开资源管理器窗口显示文件夹内容。
 
 ; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}; Flags: nowait postinstall skipifsilent
+
+
+[UninstallRun]
+;[Run] 区段是可选的，用来指定在程序完成安装后，在安装程序显示最终对话框前要执行的一些程序。[UninstallRun] 区段也同样是可选的，用来指定在卸载第一步要执行的一些程序。除在下面有注释的外，两个区段使用相同的语法。
+
 
 [Types]
-Name: "完全安装"; Description: "完全安装"
+Name: 完全安装; Description: 完全安装
 
-[Files]
-Source: "D:\all\Program Files\2345Soft\HaoZip\HaoZip.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\all\Program Files\2345Soft\HaoZip\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-;Source: "D:\all\ProgramData\Microsoft\Windows\Start Menu\Programs\*"; DestDir: "C:\ProgramData\Microsoft\Windows\Start Menu\Programs"; Flags: ignoreversion recursesubdirs createallsubdirs
-; 注意: 不要在任何共享系统文件上使用“Flags: ignoreversion”
-
-
- ;如果不是使用本人增强版本INNO,则使用定时回调插件
+[Code]
+//水波纹代码
+// 注意: 不要在任何共享系统文件上使用“Flags: ignoreversion”
+//如果不是使用本人增强版本INNO,则使用定时回调插件
 #ifndef ISVersion
 Source: InnoCallback.dll; DestDir: {tmp}; Flags: dontcopy noencryption
 #endif
 
-[Code]
 #ifndef ISVersion
 type
  TTimerProc = procedure(H: LongWord; MSG: LongWord; idEvent: LongWord; dwTime: LongWord);
@@ -145,8 +181,6 @@ var
   Timer: TTimer;
 #endif
 
-
-
 #ifdef ISVersion
 procedure Timer_OnTimer(Sender: TObject);
 Begin
@@ -163,7 +197,7 @@ procedure MyTimerProc(H: LongWord; MSG: LongWord; idEvent:LongWord; dwTime:LongW
 begin
   MoveT_Y := MoveT_Y + 1;
   If MoveT_Y >= WizardForm.WizardBitmapImage.Height then MoveT_Y := 0;
-  WaterDrawText(WaterHandle, 1, 50, MoveT_Y, DrawTextMoveDemo);
+  //WaterDrawText(WaterHandle, 1, 50, MoveT_Y, DrawTextMoveDemo);
 
   MoveB_X := MoveB_X + 1;
   If MoveB_X >= WizardForm.WizardBitmapImage.Width then MoveB_X := 0 - DrawBitmapDemo.Width;
@@ -206,3 +240,973 @@ begin
   WaterAllFree;
 end;
 
+
+
+//注册表
+//"C:\Program Files\2345Soft\HaoZip\HaoZip.exe" "%1"
+[Registry]
+Root: HKLM; SubKey: SOFTWARE\Classes\*\shellex\ContextMenuHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\*\shellex\DragDropHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\*\shellex\PropertySheetHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.001; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.002; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.003; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.004; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.005; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.006; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.007; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.008; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.009; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.010; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.011; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.012; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.013; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.014; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.015; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.016; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.017; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.018; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.019; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.020; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.021; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.022; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.023; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.024; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.025; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.026; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.027; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.028; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.029; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.030; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.031; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.032; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.033; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.034; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.035; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.036; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.037; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.038; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.039; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.040; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.041; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.042; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.043; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.044; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.045; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.046; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.047; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.048; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.049; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.050; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.7z; ValueType: string; ValueName: ; ValueData: HaoZip.7z; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.7z\ShellNew; ValueType: string; ValueName: FileName; ValueData: """{app}\7zNew.data"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.ace; ValueType: string; ValueName: ; ValueData: HaoZip.ace; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.alz; ValueType: string; ValueName: ; ValueData: HaoZip.alz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.arj; ValueType: string; ValueName: ; ValueData: HaoZip.arj; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.bz; ValueType: string; ValueName: ; ValueData: HaoZip.bz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.bz2; ValueType: string; ValueName: ; ValueData: HaoZip.bz2; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.bzip2; ValueType: string; ValueName: ; ValueData: HaoZip.bzip2; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.cab; ValueType: string; ValueName: ; ValueData: HaoZip.cab; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.cab; ValueType: string; ValueName: HaoZipBackup; ValueData: CABFolder; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.cpio; ValueType: string; ValueName: ; ValueData: HaoZip.cpio; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.deb; ValueType: string; ValueName: ; ValueData: HaoZip.deb; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.dmg; ValueType: string; ValueName: ; ValueData: HaoZip.dmg; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.gz; ValueType: string; ValueName: ; ValueData: HaoZip.gz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.gzip; ValueType: string; ValueName: ; ValueData: HaoZip.gzip; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.hfs; ValueType: string; ValueName: ; ValueData: HaoZip.hfs; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.img; ValueType: string; ValueName: ; ValueData: HaoZip.img; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.img; ValueType: string; ValueName: HaoZipBackup; ValueData: Windows.IsoFile; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.iso; ValueType: string; ValueName: ; ValueData: HaoZip.iso; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.iso; ValueType: string; ValueName: HaoZipBackup; ValueData: Windows.IsoFile; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.isz; ValueType: string; ValueName: ; ValueData: HaoZip.isz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.lha; ValueType: string; ValueName: ; ValueData: HaoZip.lha; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.lzh; ValueType: string; ValueName: ; ValueData: HaoZip.lzh; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.lzma; ValueType: string; ValueName: ; ValueData: HaoZip.lzma; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.lzma86; ValueType: string; ValueName: ; ValueData: HaoZip.lzma86; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r00; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r01; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r02; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r03; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r04; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r05; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r06; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r07; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r08; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r09; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r10; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r11; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r12; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r13; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r14; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r15; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r16; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r17; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r18; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r19; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r20; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r21; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r22; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r23; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r24; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r25; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r26; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r27; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r28; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r29; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r30; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r31; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r32; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r33; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r34; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r35; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r36; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r37; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r38; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r39; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r40; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r41; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r42; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r43; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r44; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r45; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r46; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r47; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r48; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r49; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r50; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r51; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r52; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r53; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r54; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r55; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r56; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r57; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r58; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r59; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r60; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r61; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r62; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r63; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r64; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r65; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r66; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r67; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r68; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r69; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r70; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r71; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r72; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r73; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r74; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r75; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r76; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r77; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r78; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r79; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r80; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r81; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r82; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r83; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r84; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r85; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r86; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r87; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r88; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r89; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r90; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r91; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r92; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r93; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r94; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r95; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r96; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r97; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r98; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.r99; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.rar; ValueType: string; ValueName: ; ValueData: HaoZip.rar; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.rar\ShellNew; ValueType: string; ValueName: FileName; ValueData: """{app}\RarNew.data"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.sfxv; ValueType: string; ValueName: ; ValueData: HaoZip.sfxv; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.swm; ValueType: string; ValueName: ; ValueData: HaoZip.swm; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.tar; ValueType: string; ValueName: ; ValueData: HaoZip.tar; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.taz; ValueType: string; ValueName: ; ValueData: HaoZip.taz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.tbz; ValueType: string; ValueName: ; ValueData: HaoZip.tbz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.tbz2; ValueType: string; ValueName: ; ValueData: HaoZip.tbz2; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.tgz; ValueType: string; ValueName: ; ValueData: HaoZip.tgz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.tpz; ValueType: string; ValueName: ; ValueData: HaoZip.tpz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.txz; ValueType: string; ValueName: ; ValueData: HaoZip.txz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.uue; ValueType: string; ValueName: ; ValueData: HaoZip.uue; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.wim; ValueType: string; ValueName: ; ValueData: HaoZip.wim; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.xar; ValueType: string; ValueName: ; ValueData: HaoZip.xar; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.xpi; ValueType: string; ValueName: ; ValueData: HaoZip.xpi; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.xz; ValueType: string; ValueName: ; ValueData: HaoZip.xz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z; ValueType: string; ValueName: ; ValueData: HaoZip.z; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z01; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z02; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z03; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z04; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z05; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z06; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z07; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z08; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z09; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z10; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z11; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z12; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z13; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z14; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z15; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z16; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z17; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z18; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z19; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z20; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z21; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z22; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z23; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z24; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z25; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z26; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z27; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z28; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z29; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z30; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z31; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z32; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z33; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z34; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z35; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z36; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z37; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z38; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z39; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z40; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z41; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z42; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z43; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z44; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z45; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z46; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z47; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z48; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z49; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z50; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z51; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z52; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z53; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z54; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z55; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z56; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z57; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z58; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z59; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z60; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z61; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z62; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z63; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z64; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z65; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z66; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z67; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z68; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z69; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z70; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z71; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z72; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z73; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z74; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z75; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z76; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z77; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z78; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z79; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z80; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z81; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z82; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z83; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z84; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z85; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z86; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z87; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z88; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z89; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z90; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z91; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z92; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z93; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z94; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z95; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z96; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z97; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z98; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.z99; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.zip; ValueType: string; ValueName: ; ValueData: HaoZip.zip; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.zip; ValueType: string; ValueName: HaoZipBackup; ValueData: CompressedFolder; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.zip\ShellNew; ValueType: string; ValueName: FileName; ValueData: """{app}\ZipNew.data"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\.zipx; ValueType: string; ValueName: ; ValueData: HaoZip.zipx; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\CLSID\{{5FED836A-C96C-4d88-A91E-F63F07726585}; ValueType: string; ValueName: ; ValueData: HaoZip Shell Extension; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\CLSID\{{5FED836A-C96C-4d88-A91E-F63F07726585}\InprocServer32; ValueType: string; ValueName: ; ValueData: """{app}\HaoZipExt.dll"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\CLSID\{{5FED836A-C96C-4d88-A91E-F63F07726585}\InprocServer32; ValueType: string; ValueName: ThreadingModel; ValueData: Apartment; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\Directory\shellex\DragDropHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\Drive\shellex\DragDropHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\Folder\ShellEx\DragDropHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.001; ValueType: string; ValueData: 好压 分卷 压缩文件; Flags: uninsdeletekey
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.001\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.001\shell\open\command; ValueType: string; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.7z; ValueType: string; ValueData: 好压 7Z 压缩文件; Flags: uninsdeletekey
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.7z\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico""";Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.7z\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.7z\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.ace; ValueType: string; ValueData: 好压 ACE 压缩文件; Flags: uninsdeletekey
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.ace\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico""";Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.ace\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.alz; ValueType: string; ValueData: 好压 ALZ 压缩文件; Flags: uninsdeletekey
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.alz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico""";Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.alz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.arj; ValueType: string; ValueName: ; ValueData: 好压 ARJ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.arj\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.arj\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bz; ValueType: string; ValueName: ; ValueData: 好压 BZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bz2; ValueType: string; ValueName: ; ValueData: 好压 BZ2 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bz2\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bz2\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bzip2; ValueType: string; ValueName: ; ValueData: 好压 BZIP2 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bzip2\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.bzip2\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.cab; ValueType: string; ValueName: ; ValueData: 好压 CAB 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.cab\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.cab\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.cpio; ValueType: string; ValueName: ; ValueData: 好压 CPIO 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.cpio\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.cpio\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.deb; ValueType: string; ValueName: ; ValueData: 好压 DEB 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.deb\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.deb\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.dmg; ValueType: string; ValueName: ; ValueData: 好压 DMG 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.dmg\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.dmg\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.gz; ValueType: string; ValueName: ; ValueData: 好压 GZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.gz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.gz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.gzip; ValueType: string; ValueName: ; ValueData: 好压 GZIP 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.gzip\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.gzip\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.hfs; ValueType: string; ValueName: ; ValueData: 好压 HFS 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.hfs\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.hfs\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.img; ValueType: string; ValueName: ; ValueData: 好压 IMG 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.img\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.img\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.iso; ValueType: string; ValueName: ; ValueData: 好压 ISO 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.iso\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.iso\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.isz; ValueType: string; ValueName: ; ValueData: 好压 ISZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.isz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.isz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.jar; ValueType: string; ValueName: ; ValueData: 好压 JAR 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.jar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.jar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.jar\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lha; ValueType: string; ValueName: ; ValueData: 好压 LHA 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lha\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lha\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lha\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzh; ValueType: string; ValueName: ; ValueData: 好压 LZH 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzh\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzh\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzh\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzma; ValueType: string; ValueName: ; ValueData: 好压 LZMA 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzma\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzma\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzma86; ValueType: string; ValueName: ; ValueData: 好压 LZMA86 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzma86\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.lzma86\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rar; ValueType: string; ValueName: ; ValueData: 好压 RAR 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rar.split; ValueType: string; ValueName: ; ValueData: 好压 RAR 分卷 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rar.split\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rar.split\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe""  ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rpm; ValueType: string; ValueName: ; ValueData: 好压 RPM 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rpm\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.rpm\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.sfxv; ValueType: string; ValueName: ; ValueData: 好压 分卷 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.sfxv\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.sfxv\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.swm; ValueType: string; ValueName: ; ValueData: 好压 SWM 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.swm\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.swm\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tar; ValueType: string; ValueName: ; ValueData: 好压 TAR 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tar\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.taz; ValueType: string; ValueName: ; ValueData: 好压 TAZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.taz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.taz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tbz; ValueType: string; ValueName: ; ValueData: 好压 TBZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tbz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tbz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tbz2; ValueType: string; ValueName: ; ValueData: 好压 TBZ2 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tbz2\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tbz2\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tgz; ValueType: string; ValueName: ; ValueData: 好压 TGZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tgz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tgz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tpz; ValueType: string; ValueName: ; ValueData: 好压 TPZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tpz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.tpz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.txz; ValueType: string; ValueName: ; ValueData: 好压 TXZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.txz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.txz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.uue; ValueType: string; ValueName: ; ValueData: 好压 UUE 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.uue\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.uue\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.wim; ValueType: string; ValueName: ; ValueData: 好压 WIM 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.wim\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.wim\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xar; ValueType: string; ValueName: ; ValueData: 好压 XAR 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xpi; ValueType: string; ValueName: ; ValueData: 好压 XPI 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xpi\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xpi\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xpi\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xz; ValueType: string; ValueName: ; ValueData: 好压 XZ 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.xz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.z; ValueType: string; ValueName: ; ValueData: 好压 Z 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.z\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.z\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zip; ValueType: string; ValueName: ; ValueData: 好压 ZIP 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zip\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zip\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zip\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zip.split; ValueType: string; ValueName: ; ValueData: 好压 ZIP 分卷 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zip.split\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zip.split\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zipx; ValueType: string; ValueName: ; ValueData: 好压 ZIPX 压缩文件; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zipx\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zipx\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\HaoZip.zipx\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\lnkfile\shellex\ContextMenuHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\lnkfile\shellex\DragDropHandlers\HaoZip; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Classes\Wow6432Node\CLSID\{{5FED836A-C96C-4d88-A91E-F63F07726585}\InprocServer32; ValueType: string; ValueName: ; ValueData: """{app}\HaozipExt32.dll"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip; ValueType: string; ValueName: Path; ValueData: """{app}"""; Flags: uninsdeletekey
+Root: HKLM; SubKey: SOFTWARE\HaoZip; ValueType: string; ValueName: Value; ValueData: 001058013700308080602090400903; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip; ValueType: string; ValueName: Value1; ValueData: 0; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip; ValueType: string; ValueName: Value2; ValueData: 1; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities; ValueType: string; ValueName: ApplicationDescription; ValueData: 好压; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .001; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .7z; ValueData: HaoZip.7z; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .ace; ValueData: HaoZip.ace; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .alz; ValueData: HaoZip.alz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .arj; ValueData: HaoZip.arj; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .bz; ValueData: HaoZip.bz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .bz2; ValueData: HaoZip.bz2; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .bzip2; ValueData: HaoZip.bzip2; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .cab; ValueData: HaoZip.cab; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .cpio; ValueData: HaoZip.cpio; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .deb; ValueData: HaoZip.deb; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .dmg; ValueData: HaoZip.dmg; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .gz; ValueData: HaoZip.gz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .gzip; ValueData: HaoZip.gzip; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .hfs; ValueData: HaoZip.hfs; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .img; ValueData: HaoZip.img; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .iso; ValueData: HaoZip.iso; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .isz; ValueData: HaoZip.isz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .jar; ValueData: HaoZip.jar; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .lha; ValueData: HaoZip.lha; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .lzh; ValueData: HaoZip.lzh; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .lzma; ValueData: HaoZip.lzma; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .lzma86; ValueData: HaoZip.lzma86; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .r00; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .rar; ValueData: HaoZip.rar; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .rpm; ValueData: HaoZip.rpm; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .sfxv; ValueData: HaoZip.sfxv; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .swm; ValueData: HaoZip.swm; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .tar; ValueData: HaoZip.tar; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .taz; ValueData: HaoZip.taz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .tbz; ValueData: HaoZip.tbz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .tbz2; ValueData: HaoZip.tbz2; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .tgz; ValueData: HaoZip.tgz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .tpz; ValueData: HaoZip.tpz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .txz; ValueData: HaoZip.txz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .uue; ValueData: HaoZip.uue; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .wim; ValueData: HaoZip.wim; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .xar; ValueData: HaoZip.xar; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .xpi; ValueData: HaoZip.xpi; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .xz; ValueData: HaoZip.xz; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .z; ValueData: HaoZip.z; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .z01; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .zip; ValueData: HaoZip.zip; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\HaoZip\Capabilities\FileAssociations; ValueType: string; ValueName: .zipx; ValueData: HaoZip.zipx; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\Security Center; ValueType: dword; ValueName: cval; ValueData: $00000001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\SystemCertificates\AuthRoot\Certificates\AFE5D244A8D1194230FF479FE2F897BBCD7A8CB4; ValueType: binary; ValueName: Blob; ValueData: ; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\SystemCertificates\AuthRoot\Certificates\DDFB16CD4931C973A2037D3FC83A4D7D775D05E4; ValueType: binary; ValueName: Blob; ValueData: ; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\WBEM\CIMOM; ValueType: binary; ValueName: List of event-active namespaces; ValueData: 00 00 5C 00 2E 00 5C 00 72 00 6F 00 6F 00 74 00 5C 00 63 00 69 00 6D 00 76 00 32 00 5C 00 70 00 6F 00 77 00 65 00 72 00 00 00 72 00 61 00; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\HaoZip.exe; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\HaoZip.exe; ValueType: string; ValueName: Path; ValueData: """{app}"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\HaoZipC.exe; ValueType: string; ValueName: ; ValueData: """{app}\HaoZipC.exe"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\HaoZipC.exe; ValueType: string; ValueName: Path; ValueData: """{app}"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved; ValueType: string; ValueName: {{5FED836A-C96C-4d88-A91E-F63F07726585}; ValueData: HaoZip Shell Extension; Flags: uninsdeletevalue
+//Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\HaoZip; ValueType: string; ValueName: DisplayIcon; ValueData: {app}\HaoZip.exe; Flags: uninsdeletevalue
+//Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\HaoZip; ValueType: string; ValueName: DisplayName; ValueData: 好压 - 2345; Flags: uninsdeletevalue
+//Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\HaoZip; ValueType: string; ValueName: DisplayVersion; ValueData: v6.3; Flags: uninsdeletevalue
+//Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\HaoZip; ValueType: string; ValueName: Publisher; ValueData: 2345移动科技; Flags: uninsdeletevalue
+//Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\HaoZip; ValueType: string; ValueName: UninstallString; ValueData: C:\Program Files\2345Soft\HaoZip\Uninstall.exe; Flags: uninsdeletevalue
+//Root: HKLM; SubKey: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\HaoZip; ValueType: string; ValueName: URLInfoAbout; ValueData: http://haozip.2345.cc; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\RegisteredApplications; ValueType: string; ValueName: HaoZip; ValueData: SOFTWARE\HaoZip\Capabilities; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Wow6432Node\HaoZip; ValueType: string; ValueName: Compliance; ValueData: 1; Flags: uninsdeletekey
+Root: HKLM; SubKey: SOFTWARE\Wow6432Node\HaoZip; ValueType: string; ValueName: Path; ValueData: """{app}"""; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Wow6432Node\HaoZip; ValueType: dword; ValueName: userSelectResult; ValueData: $00000001; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Wow6432Node\HaoZip; ValueType: dword; ValueName: userSelectTime; ValueData: $630C1CA4; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Wow6432Node\HaoZip; ValueType: string; ValueName: Value; ValueData: 001058013700308080602090400903; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Wow6432Node\HaoZip; ValueType: string; ValueName: Value1; ValueData: 0; Flags: uninsdeletevalue
+Root: HKLM; SubKey: SOFTWARE\Wow6432Node\HaoZip; ValueType: string; ValueName: Value2; ValueData: 1; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com; ValueType: string; ValueName: HaoZip; ValueData: 181F8F7B8E455FD0CE0A2156D8598881                2430; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com; ValueType: string; ValueName: UUID; ValueData: 181F8F7B8E455FD0CE0A2156D8598881                2430; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com\HaoZip; ValueType: string; ValueName: ActiveDaysNow; ValueData: 1661738148                                      1826; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com\HaoZip; ValueType: string; ValueName: ADValue; ValueData: 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               17424; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com\HaoZip; ValueType: string; ValueName: InstallBy; ValueData: ; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com\HaoZip; ValueType: string; ValueName: LADValue; ValueData: 1661738136                                      1820; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com\HaoZip; ValueType: string; ValueName: UninstallBy; ValueData: ; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\2345.com\HaoZip; ValueType: string; ValueName: UpgradeBy; ValueData: ; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.001; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.002; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.003; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.004; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.005; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.006; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.007; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.008; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.009; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.010; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.011; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.012; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.013; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.014; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.015; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.016; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.017; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.018; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.019; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.020; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.021; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.022; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.023; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.024; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.025; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.026; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.027; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.028; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.029; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.030; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.031; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.032; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.033; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.034; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.035; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.036; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.037; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.038; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.039; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.040; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.041; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.042; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.043; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.044; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.045; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.046; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.047; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.048; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.049; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.050; ValueType: string; ValueName: ; ValueData: HaoZip.001; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.7z; ValueType: string; ValueName: ; ValueData: HaoZip.7z; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.7z\ShellNew; ValueType: string; ValueName: FileName; ValueData: """{app}\7zNew.data"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.ace; ValueType: string; ValueName: ; ValueData: HaoZip.ace; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.alz; ValueType: string; ValueName: ; ValueData: HaoZip.alz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.arj; ValueType: string; ValueName: ; ValueData: HaoZip.arj; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.bz; ValueType: string; ValueName: ; ValueData: HaoZip.bz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.bz2; ValueType: string; ValueName: ; ValueData: HaoZip.bz2; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.bzip2; ValueType: string; ValueName: ; ValueData: HaoZip.bzip2; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.cab; ValueType: string; ValueName: ; ValueData: HaoZip.cab; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.cab; ValueType: string; ValueName: HaoZipBackup; ValueData: CABFolder; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.cpio; ValueType: string; ValueName: ; ValueData: HaoZip.cpio; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.deb; ValueType: string; ValueName: ; ValueData: HaoZip.deb; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.dmg; ValueType: string; ValueName: ; ValueData: HaoZip.dmg; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.gz; ValueType: string; ValueName: ; ValueData: HaoZip.gz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.gzip; ValueType: string; ValueName: ; ValueData: HaoZip.gzip; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.hfs; ValueType: string; ValueName: ; ValueData: HaoZip.hfs; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.img; ValueType: string; ValueName: ; ValueData: HaoZip.img; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.img; ValueType: string; ValueName: HaoZipBackup; ValueData: Windows.IsoFile; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.iso; ValueType: string; ValueName: ; ValueData: HaoZip.iso; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.iso; ValueType: string; ValueName: HaoZipBackup; ValueData: Windows.IsoFile; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.isz; ValueType: string; ValueName: ; ValueData: HaoZip.isz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.lha; ValueType: string; ValueName: ; ValueData: HaoZip.lha; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.lzh; ValueType: string; ValueName: ; ValueData: HaoZip.lzh; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.lzma; ValueType: string; ValueName: ; ValueData: HaoZip.lzma; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.lzma86; ValueType: string; ValueName: ; ValueData: HaoZip.lzma86; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r00; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r01; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r02; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r03; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r04; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r05; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r06; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r07; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r08; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r09; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r10; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r11; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r12; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r13; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r14; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r15; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r16; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r17; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r18; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r19; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r20; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r21; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r22; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r23; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r24; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r25; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r26; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r27; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r28; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r29; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r30; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r31; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r32; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r33; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r34; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r35; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r36; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r37; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r38; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r39; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r40; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r41; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r42; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r43; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r44; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r45; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r46; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r47; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r48; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r49; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r50; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r51; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r52; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r53; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r54; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r55; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r56; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r57; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r58; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r59; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r60; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r61; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r62; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r63; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r64; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r65; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r66; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r67; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r68; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r69; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r70; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r71; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r72; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r73; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r74; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r75; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r76; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r77; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r78; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r79; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r80; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r81; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r82; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r83; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r84; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r85; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r86; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r87; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r88; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r89; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r90; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r91; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r92; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r93; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r94; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r95; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r96; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r97; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r98; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.r99; ValueType: string; ValueName: ; ValueData: HaoZip.rar.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.rar; ValueType: string; ValueName: ; ValueData: HaoZip.rar; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.rar\ShellNew; ValueType: string; ValueName: FileName; ValueData: """{app}\RarNew.data"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.sfxv; ValueType: string; ValueName: ; ValueData: HaoZip.sfxv; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.swm; ValueType: string; ValueName: ; ValueData: HaoZip.swm; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.tar; ValueType: string; ValueName: ; ValueData: HaoZip.tar; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.taz; ValueType: string; ValueName: ; ValueData: HaoZip.taz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.tbz; ValueType: string; ValueName: ; ValueData: HaoZip.tbz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.tbz2; ValueType: string; ValueName: ; ValueData: HaoZip.tbz2; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.tgz; ValueType: string; ValueName: ; ValueData: HaoZip.tgz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.tpz; ValueType: string; ValueName: ; ValueData: HaoZip.tpz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.txz; ValueType: string; ValueName: ; ValueData: HaoZip.txz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.uue; ValueType: string; ValueName: ; ValueData: HaoZip.uue; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.wim; ValueType: string; ValueName: ; ValueData: HaoZip.wim; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.xar; ValueType: string; ValueName: ; ValueData: HaoZip.xar; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.xpi; ValueType: string; ValueName: ; ValueData: HaoZip.xpi; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.xz; ValueType: string; ValueName: ; ValueData: HaoZip.xz; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z; ValueType: string; ValueName: ; ValueData: HaoZip.z; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z01; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z02; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z03; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z04; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z05; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z06; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z07; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z08; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z09; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z10; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z11; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z12; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z13; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z14; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z15; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z16; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z17; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z18; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z19; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z20; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z21; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z22; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z23; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z24; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z25; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z26; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z27; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z28; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z29; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z30; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z31; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z32; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z33; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z34; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z35; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z36; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z37; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z38; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z39; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z40; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z41; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z42; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z43; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z44; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z45; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z46; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z47; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z48; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z49; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z50; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z51; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z52; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z53; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z54; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z55; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z56; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z57; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z58; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z59; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z60; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z61; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z62; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z63; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z64; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z65; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z66; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z67; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z68; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z69; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z70; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z71; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z72; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z73; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z74; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z75; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z76; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z77; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z78; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z79; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z80; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z81; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z82; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z83; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z84; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z85; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z86; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z87; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z88; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z89; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z90; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z91; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z92; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z93; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z94; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z95; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z96; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z97; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z98; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.z99; ValueType: string; ValueName: ; ValueData: HaoZip.zip.split; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.zip; ValueType: string; ValueName: ; ValueData: HaoZip.zip; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.zip; ValueType: string; ValueName: HaoZipBackup; ValueData: CompressedFolder; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.zip\ShellNew; ValueType: string; ValueName: FileName; ValueData: """{app}\ZipNew.data"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\.zipx; ValueType: string; ValueName: ; ValueData: HaoZip.zipx; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.001; ValueType: string; ValueName: ; ValueData: 好压 分卷 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.001\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.001\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.7z; ValueType: string; ValueName: ; ValueData: 好压 7Z 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.7z\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.7z\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.7z\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.ace; ValueType: string; ValueName: ; ValueData: 好压 ACE 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.ace\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.ace\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.alz; ValueType: string; ValueName: ; ValueData: 好压 ALZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.alz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.alz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.arj; ValueType: string; ValueName: ; ValueData: 好压 ARJ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.arj\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.arj\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bz; ValueType: string; ValueName: ; ValueData: 好压 BZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bz2; ValueType: string; ValueName: ; ValueData: 好压 BZ2 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bz2\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bz2\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bzip2; ValueType: string; ValueName: ; ValueData: 好压 BZIP2 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bzip2\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.bzip2\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.cab; ValueType: string; ValueName: ; ValueData: 好压 CAB 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.cab\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.cab\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.cpio; ValueType: string; ValueName: ; ValueData: 好压 CPIO 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.cpio\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.cpio\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.deb; ValueType: string; ValueName: ; ValueData: 好压 DEB 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.deb\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.deb\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.dmg; ValueType: string; ValueName: ; ValueData: 好压 DMG 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.dmg\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.dmg\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.gz; ValueType: string; ValueName: ; ValueData: 好压 GZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.gz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.gz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.gzip; ValueType: string; ValueName: ; ValueData: 好压 GZIP 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.gzip\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.gzip\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.hfs; ValueType: string; ValueName: ; ValueData: 好压 HFS 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.hfs\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.hfs\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.img; ValueType: string; ValueName: ; ValueData: 好压 IMG 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.img\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.img\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.iso; ValueType: string; ValueName: ; ValueData: 好压 ISO 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.iso\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.iso\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.isz; ValueType: string; ValueName: ; ValueData: 好压 ISZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.isz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.isz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.jar; ValueType: string; ValueName: ; ValueData: 好压 JAR 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.jar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.jar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.jar\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lha; ValueType: string; ValueName: ; ValueData: 好压 LHA 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lha\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lha\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lha\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzh; ValueType: string; ValueName: ; ValueData: 好压 LZH 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzh\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzh\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzh\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzma; ValueType: string; ValueName: ; ValueData: 好压 LZMA 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzma\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzma\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzma86; ValueType: string; ValueName: ; ValueData: 好压 LZMA86 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzma86\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.lzma86\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rar; ValueType: string; ValueName: ; ValueData: 好压 RAR 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rar.split; ValueType: string; ValueName: ; ValueData: 好压 RAR 分卷 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rar.split\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rar.split\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rpm; ValueType: string; ValueName: ; ValueData: 好压 RPM 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rpm\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.rpm\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.sfxv; ValueType: string; ValueName: ; ValueData: 好压 分卷 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.sfxv\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.sfxv\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.swm; ValueType: string; ValueName: ; ValueData: 好压 SWM 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.swm\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.swm\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tar; ValueType: string; ValueName: ; ValueData: 好压 TAR 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tar\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.taz; ValueType: string; ValueName: ; ValueData: 好压 TAZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.taz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.taz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tbz; ValueType: string; ValueName: ; ValueData: 好压 TBZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tbz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tbz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tbz2; ValueType: string; ValueName: ; ValueData: 好压 TBZ2 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tbz2\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tbz2\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tgz; ValueType: string; ValueName: ; ValueData: 好压 TGZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tgz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tgz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tpz; ValueType: string; ValueName: ; ValueData: 好压 TPZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tpz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.tpz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.txz; ValueType: string; ValueName: ; ValueData: 好压 TXZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.txz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.txz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.uue; ValueType: string; ValueName: ; ValueData: 好压 UUE 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.uue\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.uue\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.wim; ValueType: string; ValueName: ; ValueData: 好压 WIM 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.wim\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.wim\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xar; ValueType: string; ValueName: ; ValueData: 好压 XAR 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xar\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xar\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xpi; ValueType: string; ValueName: ; ValueData: 好压 XPI 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xpi\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xpi\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xpi\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xz; ValueType: string; ValueName: ; ValueData: 好压 XZ 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xz\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.xz\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.z; ValueType: string; ValueName: ; ValueData: 好压 Z 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.z\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.z\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zip; ValueType: string; ValueName: ; ValueData: 好压 ZIP 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zip\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zip\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zip\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zip.split; ValueType: string; ValueName: ; ValueData: 好压 ZIP 分卷 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zip.split\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zip.split\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zipx; ValueType: string; ValueName: ; ValueData: 好压 ZIPX 压缩文件; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zipx\DefaultIcon; ValueType: string; ValueName: ; ValueData: """{app}\icon\logo.ico"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zipx\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\HaoZip.exe"" ""%1"""; Flags: uninsdeletevalue
+Root: HKU; SubKey: S-1-5-21-2142800814-449549384-1502023208-500\Software\Classes\HaoZip.zipx\shellex\DropHandler; ValueType: string; ValueName: ; ValueData: {{5FED836A-C96C-4d88-A91E-F63F07726585}; Flags: uninsdeletevalue
